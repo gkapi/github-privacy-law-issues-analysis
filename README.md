@@ -25,4 +25,4 @@ The dataset contains the following files:
   * bert-trained-classify-new.py: for running the fine tunes BERT classifier on new GitHub issues.
   * github-privacy-concerns-analysis-for-replication.R: other analysis steps.
 
-The fine tuned BERT model used for the classification of the issues as privacy or non-privacy relevant is available on Huggingface: https://huggingface.co/gkapi/bert-uncased-privacy-law-binary-model
+The fine tuned BERT model used for the classification of the issues as privacy or non-privacy relevant is available on Huggingface and contains a link to the labeled dataset used for the fine tuning: https://huggingface.co/gkapi/bert-uncased-privacy-law-binary-model
