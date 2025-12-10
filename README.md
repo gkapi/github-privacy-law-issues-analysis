@@ -19,7 +19,7 @@ The dataset contains the following files:
   * frequencies of categories (rq3-categorization-manual_sample.csv)
   * other categorization results from IBM SPSS Statistics including comparison among categories (rq3-categories-comparison-coders-output.spv) and the Cohen's Kappa calculation results for the categorization of user rights and principles by the two coders in RQ2 (rq2-coding-kappa-output.spv) 
   * A codebook with definitions and examples for the issues categorization (RQ3): concerns-descriptions-gkapi-examples.html
-  * The questionnaire given to experts for the validation of the created taxonomy is available in Google Forms here: https://forms.gle/UpxKKyxtohAkDLLq6
+  * The questionnaire given to experts for the validation of the created taxonomy: Validation of list of privacy law developer concerns - Google Forms.pdf (the experts were given the codebook)
 
 - Outside the folders the analysis scripts in R and Python are provided (instructions on executing the steps are provided inside the files in comments):
   * bert-trained-classify-new.py: for running the fine tunes BERT classifier on new GitHub issues.
