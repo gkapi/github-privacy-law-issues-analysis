@@ -6,7 +6,6 @@ The dataset contains the following files:
 
 - in folder data/ are the datasets used that were collected using GitHub API, as long as the initial files created by the authors to be used later in the analysis:
   * issues_ALL_BERT_final.csv: the whole dataset (final filtered dataset) with all laws used for the subsequent analysis (without duplicates).
-  * issues_ccpa.csv: issues for the CCPA privacy law (as an example of the raw data collected for a specific law from GitHub API before applying any filtering on data).
   * issues-nonlaw.csv: non-law relevant issues dataset collected for comparison purposes with the work dataset (comparison between law-relevant and non-law relevant issues). Used to answer RQ1.
   * law-principles/: this folder contains a number of lists with keywords for law user rights and principles. There are 2 files for each user right (1 is the keyword file created by the authors, and the other is the revised file provided by ChatGPT - GPT-5.0, e.g. law-keywords-right-to-data-portability.csv and law-keywords-right-to-data-portability-GPT-revised.csv). For the principles, there is one file per principle, apart from data minimization” and “storage limitation” principles.
   * keywords-enrichment-prompts: the full prompts provided to ChatGPT for the user rights and principles keywords enrichment.
