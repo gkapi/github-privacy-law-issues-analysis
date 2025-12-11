@@ -12,8 +12,8 @@ The dataset contains the following files:
 
 - In folder results/ results to the Research Questions are provided:
   * The confusion matrix from BERT classification of issues as privacy or non-privacy relevant (BERT-512-privacy-law-non-privacy-law-confusion-matrix.png)
-  * user rights and principles presence results for the automated process on the whole dataset and the manually analyzed sample results (rights-presence.xlsx and rq2-keywords_presence_full-term-manual_sample.csv respectively)
-  *  final coding categorization for the user rights and (rq2-rights-principles-coders-output-test)
+  * user rights and principles presence results for the automated process on the whole dataset (rights-presence.xlsx)
+  *  sample and final coding categorization for the user rights (rq2-rights-principles-coders-output-test)
   * coding results for categorization of issues (rq2-rq3-issues-ALL-till-June-2024-full-term-sample-new-2-coders.csv and categories in: rq3-categories.csv)
   * frequencies of categories (rq3-categorization-manual_sample.csv)
   * other categorization results from IBM SPSS Statistics including comparison among categories (rq3-categories-comparison-coders-output.spv) and the Cohen's Kappa calculation results for the categorization of user rights and principles by the two coders in RQ2 (rq2-coding-kappa-output.spv) 
