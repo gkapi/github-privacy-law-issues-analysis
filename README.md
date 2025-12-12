@@ -20,8 +20,9 @@ The dataset contains the following files:
   * A codebook with definitions and examples for the issues categorization (RQ3), this file was also shared with  experts for the taxonomy validation: **concerns-descriptions-gkapi-examples.html**
   * The questionnaire given to experts for the validation of the created taxonomy: **Validation of list of privacy law developer concerns - Google Forms.pdf** (the experts were given the codebook listed previously)
 
-- Outside the folders the analysis scripts in R and Python are provided (instructions on executing the steps are provided inside the files in comments):
+- Outside the folders the analysis scripts in R and Python are provided (instructions on executing the steps are provided inside the files in comments), and some filtering clarifications:
   * **github-privacy-concerns-analysis-for-replication.R**: other analysis steps.
   * **bert-trained-classify-new.py**: for running the fine tuned BERT classifier on new GitHub issues.
+ * **Repos-with-issues-removed**: indicates the reasons for removing some repository issues based on the manual verification.
 
 The fine tuned BERT model used for the classification of the issues as privacy or non-privacy relevant is available on HuggingFace and contains a link to the labeled dataset (also on HuggingFace) used for the fine tuning: **https://huggingface.co/gkapi/bert-uncased-privacy-law-binary-model**
