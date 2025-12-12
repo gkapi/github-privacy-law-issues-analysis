@@ -23,6 +23,6 @@ The dataset contains the following files:
 - Outside the folders the analysis scripts in R and Python are provided (instructions on executing the steps are provided inside the files in comments), and some filtering clarifications:
   * **github-privacy-concerns-analysis-for-replication.R**: other analysis steps.
   * **bert-trained-classify-new.py**: for running the fine tuned BERT classifier on new GitHub issues.
- * **Repos-with-issues-removed**: indicates the reasons for removing some repository issues based on the manual verification.
+  * **bert-trained-classify-new.py**: indicates the reasons for removing some repository issues based on the manual verification.
 
 The fine tuned BERT model used for the classification of the issues as privacy or non-privacy relevant is available on HuggingFace and contains a link to the labeled dataset (also on HuggingFace) used for the fine tuning: **https://huggingface.co/gkapi/bert-uncased-privacy-law-binary-model**
