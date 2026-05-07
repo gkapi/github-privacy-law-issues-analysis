@@ -13,11 +13,11 @@ The dataset contains the following files:
 - In folder **results/** results to the Research Questions are provided:
   * The confusion matrix from BERT classification of issues as privacy or non-privacy relevant (**BERT-512-privacy-law-non-privacy-law-confusion-matrix.png**)
   * user rights and principles presence results for the automated process on the whole dataset (**rights-presence.xlsx**)
-  *  sample and final coding categorization for the user rights (**rq2-rights-principles-coders-output-test.csv**)
-  * coding results for categorization of issues (**rq2-rq3-issues-ALL-till-June-2024-full-term-sample-new-2-coders.csv** and categories in: **rq3-categories.csv**)
-  * frequencies of categories (**rq3-categorization-manual_sample.csv**)
-  * other categorization results from IBM SPSS Statistics including comparison among categories (**rq3-categories-comparison-coders-output.spv**) and the Cohen's Kappa calculation results for the categorization of user rights and principles by the two coders in RQ2 (**rq2-coding-kappa-output.spv**) 
-  * A codebook with definitions and examples for the issues categorization (RQ3), this file was also shared with  experts for the taxonomy validation: **concerns-descriptions-gkapi-examples.html**
+  *  sample and final coding categorization for the user rights (**rq1-rights-principles-coders-output-test.csv**)
+  * coding results for categorization of issues (**rq1-rq2-issues-ALL-till-June-2024-full-term-sample-new-2-coders.csv** and categories in: **rq2-categories.csv**)
+  * frequencies of categories (**rq2-categorization-manual_sample.csv**)
+  * other categorization results from IBM SPSS Statistics including comparison among categories (**rq2-categories-comparison-coders-output.spv**) and the Cohen's Kappa calculation results for the categorization of user rights and principles by the two coders in RQ1 (**rq1-coding-kappa-output.spv**) 
+  * A codebook with definitions and examples for the issues categorization (RQ1), this file was also shared with  experts for the taxonomy validation: **concerns-descriptions-gkapi-examples.html**
   * The questionnaire given to experts for the validation of the created taxonomy: **Validation of list of privacy law developer concerns - Google Forms.pdf** (the experts were given the codebook listed previously)
 
 - Outside the folders the analysis scripts in R and Python are provided (instructions on executing the steps are provided inside the files in comments), and some filtering clarifications:
