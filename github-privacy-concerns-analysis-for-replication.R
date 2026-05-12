@@ -52,26 +52,27 @@ nndf <- df %>%
             mean_days= mean(as.numeric(date_diff))
   )
 
-## RQ1 - dataset summary - plot with issues per year
+## Dataset summary and context - plot with law mentioned per year
 library(dplyr)
 yeardf <- transform(df,year=as.character(df$date) %>%
                       strsplit("/|-| ") %>%
                       sapply( "[", 3 )) 
 df_year <- df %>%
   mutate(year = lubridate::year(created_at)) %>%
-  group_by(year) %>%
+  group_by(law, year) %>%
   summarise(yearly_freq = n()) %>%
   ungroup()
-
+write.csv(df_year, file='/Volumes/Samsung_T5/RESEARCH/PAPERS/FLOSS/_GitHubPrivacy/issues-EMSE/rq2/issues-per-year-with-law-dupl.csv', row.names=FALSE)
 library(ggplot2)
 q <- df_year %>%
-  ggplot(aes(x = as.character(year), y = yearly_freq)) +
+  ggplot(aes(x = as.character(year), y = yearly_freq, fill = law)) +
   geom_bar(stat = "identity", position = "stack") +
-  labs(x = "Year", y = "Issues per year") +
+  labs(x = "Year", y = "Law mentions per year", fill = "Law") +
   theme(text = element_text(size = 14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-q
+q + 
+  scale_fill_manual(values = c("#FFA07A","darkgreen", "red", "#BDB76B" ))
 
-# RQ1 - comparison with other datasets
+# Dataset summary and context - comparison with other datasets
 dfm <- read.csv(file="data/issues-nonGDPR.csv", header=TRUE, sep=",") # final file provided in dataset
 dfm$titlebody <- tolower(paste(dfm$title,dfm$body))
 patterns <- c("gdpr", "general data protection regulation", "data protection act", "data-protection-act", "cpra", "ccpa", 
@@ -101,7 +102,7 @@ dfx <- rbind(
 write.csv(dfx, file='data/issues-law-issues-nonlaw.csv', row.names=FALSE)
 ### statistical test in SPSS
 
-#### RQ2 - keywords search within issues (repeat for each user right and principle, using the separate files in folder data/law-principles/)
+#### RQ1 - keywords search within issues (repeat for each user right and principle, using the separate files in folder data/law-principles/)
 rightsandprinciples <- 
   read.csv(file="data/law-principles/law-keywords-data-minimization.csv", sep=",", stringsAsFactors=FALSE) 
 #law-keywords.csv can be created by merging all files in folder data/law-principles/ 
@@ -115,18 +116,18 @@ ndf <- data.frame(df$html_url, df$id, df$comments, df$created_at, df$updated_at,
   as.numeric(grepl(word, bvector, fixed = TRUE))
 }))
 
-### RQ2, RQ3 - sample for manual analysis - only issues with title/body indicating the law
+### RQ1, RQ2 - sample for manual analysis - only issues with title/body indicating the law
 df$titlebody <- tolower(paste(df$title,df$body))
 patterns <- c("gdpr", "general data protection regulation", "data protection act", "data-protection-act", "cpra", "ccpa", 
               "california consumer privacy act", "california privacy rights act")
 df2 <- dplyr::filter(df, grepl(paste(patterns, collapse="|"), titlebody))
 df2.sample <- df2[sample(nrow(df2), 1206), ] 
 
-#### RQ2 - rights/principles search within issues (sample from manual - CODE AS IN: RQ2 - keywords search within issues)
+#### RQ1 - rights/principles search within issues (sample from manual - CODE AS IN: RQ1 - keywords search within issues)
 
-#### RQ2, RQ3 - Cohen's kappa calculation in SPSS
+#### RQ1, RQ2 - Cohen's kappa calculation in SPSS
 
-#### RQ3 - categorization frequencies calculation
+#### RQ2 - categorization frequencies calculation
 issues <- read.csv(file="results/rq2-rq3-issues-ALL-till-June-2024-full-term-sample-new-2-coders.csv", header=TRUE, sep=",")
 categories <- read.csv(file="results/rq3-categories.csv", sep=",", stringsAsFactors=FALSE)
 kvector <- c(as.character(tolower(categories$categories)))
@@ -144,4 +145,45 @@ names(ndf) <- c("html_url","RELEVANT", "HAS.RIGHTS","RIGHTS.PRINCIPLES","CONCERN
                 "id","comments","created_at","updated_at","closed_at",
                 "law", "keyword", kvector)
 
-#### RQ3 - statistical test between categories in SPSS
+#### RQ2 - bipartite graph
+df <- read_csv(input_file, show_col_types = FALSE)
+rights <- split_labels(df, "FINAL_RIGHTS", right_map, lower = TRUE) %>%
+  rename(right = value)
+concerns <- split_labels(df, "CONCERN.FINAL2", concern_map) %>%
+  rename(concern = value)
+
+edges <- inner_join(concerns, rights, by = "id", relationship = "many-to-many") %>%
+  count(concern, right, name = "n")
+
+left_nodes <- edges %>%
+  count(concern, wt = n, name = "total") %>%
+  arrange(desc(total), concern) %>%
+  mutate(y = rev(seq_len(n())))
+right_nodes <- edges %>%
+  count(right, wt = n, name = "total") %>%
+  arrange(desc(total), right) %>%
+  mutate(y = rev(seq_len(n())))
+edges_plot <- edges %>%
+  left_join(left_nodes, by = "concern") %>%
+  rename(y_left = y) %>%
+  left_join(right_nodes, by = "right") %>%
+  rename(y_right = y) %>%
+  mutate(size = scales::rescale(n, to = c(0.4, 2.2)))
+
+plot_obj <- ggplot() +
+  geom_curve(
+    data = edges_plot,
+    aes(x = 0.12, y = y_left, xend = 0.88, yend = y_right, linewidth = size),
+    curvature = 0.15,
+    alpha = 0.7
+  ) +
+  geom_point(data = left_nodes, aes(x = 0, y = y), color = "#FFE4C4") +
+  geom_point(data = right_nodes, aes(x = 1, y = y), color = "#53868B") +
+  geom_text(data = left_nodes, aes(x = -0.02, y = y, label = concern), hjust = 1) +
+  geom_text(data = right_nodes, aes(x = 1.02, y = y, label = right), hjust = 0) +
+  scale_linewidth_identity() +
+  coord_cartesian(xlim = c(-0.28, 1.28), clip = "off") +
+  theme_void() +
+  theme(plot.margin = margin(10, 120, 10, 120))
+
+#### RQ2 - statistical test between categories in SPSS
